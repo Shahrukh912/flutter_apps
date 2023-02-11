@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/Screens/GoogleWebpage/GoogleWebpage.dart';
-
 import 'Screens/Factorial/Factorial.dart';
+import 'Screens/Prime/Prime.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -26,8 +26,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     //this list holds all the screen you want to show on main page
     List<ScreensHolder> items = <ScreensHolder>[];
-    items.add(ScreensHolder(Icon(Icons.ac_unit),"Factorial", "Find factorial for the given number", Factorial()));
-    items.add(ScreensHolder(Icon(Icons.cloud), "Google", "Displays google homepage with the help of webview", GoogleWebpage()));
+    items.add(ScreensHolder(Icon(Icons.ac_unit), "Factorial",
+        "Find factorial for the given number", Factorial()));
+    items.add(ScreensHolder(Icon(Icons.cloud), "Google",
+        "Displays google homepage with the help of webview", GoogleWebpage()));
+    items.add(ScreensHolder(Icon(Icons.confirmation_num), "Prime", "Find whether a number is prime or not", Prime()));
 
     // TODO: implement build
     return Scaffold(
@@ -36,27 +39,25 @@ class _MyAppState extends State<MyApp> {
           itemCount: items.length,
           itemBuilder: (context, index) {
             return ListTile(
-              leading: items[index].icon,
-              title: Text(items[index].title),
-              subtitle: Text(items[index].subtitle),
-              trailing: TextButton(
-                child: Icon(Icons.navigate_next),
-                onPressed: (){
-                  Navigator.push(
+                leading: items[index].icon,
+                title: Text(items[index].title),
+                subtitle: Text(items[index].subtitle),
+                trailing: TextButton(
+                  child: Icon(Icons.navigate_next),
+                  onPressed: () {
+                    Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => items[index].nextScreen as Widget),
-                  );
-                      // Factorial() as Route<Object?>);
-                },
-              )
-
-            );
-          }, separatorBuilder: (BuildContext context, int index) => const Divider(),
-        )
-    );
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              items[index].nextScreen as Widget),
+                    ); //push
+                  }, //onPressed
+                ));
+          },
+          separatorBuilder: (BuildContext context, int index) =>
+              const Divider(),
+        ));
   }
-
-
 }
 
 class ScreensHolder {
@@ -65,6 +66,5 @@ class ScreensHolder {
   String subtitle;
   Object nextScreen;
 
-  ScreensHolder(this.icon,this.title,this.subtitle,this.nextScreen);
-
+  ScreensHolder(this.icon, this.title, this.subtitle, this.nextScreen);
 }
