@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_apps/Screens/GoogleWebpage/GoogleWebpage.dart';
 
 import 'Screens/Factorial/Factorial.dart';
 
 void main() {
   runApp(MaterialApp(
+    title: "Flutter Apps",
+    debugShowCheckedModeBanner: false,
     home: MyApp(),
   ));
 }
@@ -21,17 +24,16 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    //this list holds all the screen you want to show on main page
     List<ScreensHolder> items = <ScreensHolder>[];
     items.add(ScreensHolder(Icon(Icons.ac_unit),"Factorial", "Find factorial for the given number", Factorial()));
+    items.add(ScreensHolder(Icon(Icons.cloud), "Google", "Displays google homepage with the help of webview", GoogleWebpage()));
 
     // TODO: implement build
     return Scaffold(
-        appBar: AppBar(title: const Text('Factorial')),
-        body: ListView.builder(
+        appBar: AppBar(title: const Text('All Apps')),
+        body: ListView.separated(
           itemCount: items.length,
-          prototypeItem: ListTile(
-            title: Text("hi not sure what is this"),
-          ),
           itemBuilder: (context, index) {
             return ListTile(
               leading: items[index].icon,
@@ -49,7 +51,7 @@ class _MyAppState extends State<MyApp> {
               )
 
             );
-          },
+          }, separatorBuilder: (BuildContext context, int index) => const Divider(),
         )
     );
   }
